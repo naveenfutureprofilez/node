@@ -73,3 +73,15 @@ console.log("Filename =>",filename);
 // UPDATE A FILE
 // fs.appendFileSync(filename, 'This Update Contents');
 
+const express = require('express');
+const app = express();
+
+app.get('', (req, res)=>{ 
+      res.send("This is first request");
+});
+
+app.get('/help', (req, res)=>{ 
+   res.send("This is help request");
+});
+
+app.listen(5000);
