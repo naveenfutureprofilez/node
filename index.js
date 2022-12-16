@@ -60,12 +60,10 @@ console.log("Server Running http://127.0.0.1:8081/ ");
 //    fs.unlinkSync(process.argv[3], process.argv[4]);
 // } 
 
-
 const fs = require('fs');
 const path = require('path');
 const pathname = path.join(__dirname,'myfiles');
 const filename = `${pathname}/myfile3.txt`
-console.log("Filename =>",filename);
  
 // CREATE A FILE
 // fs.writeFileSync(filename, pathname);
@@ -85,3 +83,14 @@ app.get('/help', (req, res)=>{
 });
 
 app.listen(5000);
+
+const dbConnect = require('./mongodb');
+
+const main = async () =>{ 
+   let data = await dbConnect();
+   data = await data.find().toArray();
+   console.log(data);
+}
+
+main();
+
