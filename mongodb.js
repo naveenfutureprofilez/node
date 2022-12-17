@@ -6,7 +6,7 @@ const database = 'naveendb';
 async function dbConnect() { 
    const result = await client.connect();
    db = result.db(database);
-   return db.collection('users');
-}
+   return db.collection('users'); 
+} 
 
 module.exports = dbConnect;
