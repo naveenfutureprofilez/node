@@ -28,6 +28,37 @@ app.put('/adduser/:_id', async (req, res)=>{
 });   
 
 
+app.get('/search/:key', async (req, res)=>{ 
+   let data = await Users.find({
+      "$or" : [
+         { name: {$regex:req.params.key}}
+      ]
+   });
+   res.send(data);  
+}); 
+
+
+// const multer = require('multer');
+// const upload = multer({
+//    storage : multer.diskStorage({ 
+//       destination(req, file , cb){ 
+//          cb(null, 'uploads'){
+
+//          }
+//       },
+//       filename(req, file, cb){ 
+//          cb(null, file.filename){
+
+//          }
+//       }
+//    })
+// });
+
+app.post('/uploadfile', async (req, res)=>{ 
+   
+   res.send("Done");  
+}); 
+
 
 
 app.listen(5000, ()=>{ 
