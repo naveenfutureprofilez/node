@@ -5,6 +5,8 @@ import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import Products from './Products';
 import Navigation from './elements/Navigation';
 import AddProducts from './AddProducts';
+import SignUp from './signup/SignUp';
+import Login from './login/Login';
 const user = {
   name: 'Tom Cook',
   email: 'tom@example.com',
@@ -149,6 +151,8 @@ export default function DashboardLayout(){
             <Routes>
                 <Route index element={<Products />} />
                 <Route path='/' element={<Products />} />
+                <Route path='/signup' element={<SignUp />} />
+                <Route path='/login' element={<Login />} />
                 <Route path="/add_products" element={<AddProducts />} />
                 <Route path="*" element={"<NoPage />"} />
             </Routes>        

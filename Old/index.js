@@ -38,25 +38,24 @@ app.get('/search/:key', async (req, res)=>{
 }); 
 
 
-// const multer = require('multer');
-// const upload = multer({
-//    storage : multer.diskStorage({ 
-//       destination(req, file , cb){ 
-//          cb(null, 'uploads'){
+const multer = require('multer');
 
-//          }
-//       },
-//       filename(req, file, cb){ 
-//          cb(null, file.filename){
+const upload = multer({
+   storage : multer.diskStorage({ 
+      destination : function(req, file , cb){ 
+         cb(null, 'uploads');
+      },
+      filename : function(req, file, cb){ 
+         console.log("file => ", file);
+         cb(null, file.originalname + Date.now() +'.jpg');
+      }
+   })
+}).single('myfile');
 
-//          }
-//       }
-//    })
-// });
 
-app.post('/uploadfile', async (req, res)=>{ 
-   
-   res.send("Done");  
+
+app.post('/uploadfile', upload, async (req, res)=>{ 
+   res.send("Done");   
 }); 
 
 

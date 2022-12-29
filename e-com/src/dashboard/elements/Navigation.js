@@ -9,7 +9,8 @@ export default function Navigation(){
       }
 
     const navigation = [
-        { name: 'Products', href: '/products', current: true },
+        { name: 'Sign Up', href: '/signup', current: true },
+        { name: 'Products', href: '/products', current: false },
         { name: 'Add Products', href: '/add_products', current: false },
         { name: 'Reports', href: '#', current: false },
     ];
@@ -17,7 +18,7 @@ export default function Navigation(){
 
     return <>
             {navigation.map((item) => (
-                <Link className='text-white' to={item.href} >{item.name}</Link>
+                <Link className='text-white text-uppercase ' to={item.href} >{item.name}</Link>
             ))} 
     </>
 }
