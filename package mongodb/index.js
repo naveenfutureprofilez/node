@@ -1,95 +1,66 @@
-// const name = require('./Second.mjs');
-// var http = require('http');
-// import http from 'http';
-// http.createServer(function(request, response){ 
-//    // Send the HTTP header 
-//    // HTTP Status: 200 : OK
-//    // Content Type: text/plain
-//    response.writeHead(200, {'Content-Type':'text/plain'});
-//    response.end("Hello From Server");
-// }).listen(8081);  
+const express =  require('express');
+const app = express();
+require('./config');
+app.use(express.json());
 
-// console.log("Server Running http://127.0.0.1:8081/ ", data);  
-// console.log("data") ;   
+app.get('/allusers', (req, res)=>{ 
+   res.send("done"); 
+});  
 
-// import Naveen from './Second.mjs';
-// Naveen();
+const Users = require('./UserSchemaModel');
+app.post('/adduser', async (req, res)=>{ 
+   let user = await Users(req.body);
+   let result = await user.save();
+   res.send(result);
+});  
+
+app.delete('/adduser/:_id', async (req, res)=>{ 
+   let result = await Users.deleteOne(req.params);
+   console.log(req.body);
+   res.send(result); 
+});   
+
+app.put('/adduser/:_id', async (req, res)=>{ 
+   let result = await Users.updateOne( 
+      req.params, {$set : req.body}
+   );
+   res.send(result); 
+});   
 
 
-// import URL from 'url';
-// console.log("url",URL.href) ;  
+app.get('/search/:key', async (req, res)=>{ 
+   let data = await Users.find({
+      "$or" : [
+         { name: {$regex:req.params.key}}
+      ]
+   });
+   res.send(data);  
+}); 
 
-// import EventEmitter from 'events';
-// class EventEmit extends EventEmitter { }
 
-// const myevent = new EventEmit();
+// const multer = require('multer');
+// const upload = multer({
+//    storage : multer.diskStorage({ 
+//       destination(req, file , cb){ 
+//          cb(null, 'uploads'){
 
-// myevent.on('WaterFull', ()=>{
-//    console.log("please turn off");
+//          }
+//       },
+//       filename(req, file, cb){ 
+//          cb(null, file.filename){
+
+//          }
+//       }
+//    })
 // });
 
-// myevent.emit('WaterFull');
+app.post('/uploadfile', async (req, res)=>{ 
+   
+   res.send("Done");  
+}); 
 
 
-// const data = require('./User.js');
-// const http = require('http');
-// http.createServer(function(req, res){ 
-//    res.writeHead(200, {'Content-Type':'application/json'});
-//    res.write(JSON.stringify(data));
-//    res.end();
-// }).listen(8081); 
-// console.log("Server Running http://127.0.0.1:8081/ ");   
 
-
-// http.createServer(function(request, response){ 
-//    // Send the HTTP header 
-//    // HTTP Status: 200 : OK
-//    // Content Type: text/plain
-//    response.writeHead(200, {'Content-Type':'text/plain'});
-//    response.end("Hello From Server");
-// }).listen(8081);  
-
-
-// console.log(process.argv);
-// const fs = require('fs');
-
-// if(process.argv[2]=='create'){
-//    fs.writeFileSync(process.argv[3], process.argv[4]);
-// } 
-// if(process.argv[2]=='remove'){
-//    fs.unlinkSync(process.argv[3], process.argv[4]);
-// } 
-
-// const fs = require('fs');
-// const path = require('path');
-// const pathname = path.join(__dirname,'myfiles');
-// const filename = `${pathname}/myfile3.txt`
- 
-// CREATE A FILE
-// fs.writeFileSync(filename, pathname);
-
-// UPDATE A FILE
-// fs.appendFileSync(filename, 'This Update Contents');
-
-const express = require('express');
-const app = express();
-app.listen(5000);
-
-app.get('', (req, res)=>{ 
-      res.send("This is first page");
-});
-
-app.get('/help', (req, res)=>{ 
-   res.send("This is help request");
-});
-
-const dbConnect = require('./mongodb');
- 
-const main = async () =>{ 
-   let data = await dbConnect();
-   data = await data.find().toArray();
-   console.log(data); 
-} 
-
-main();
-
+app.listen(5000, ()=>{ 
+   console.log('server running .....');
+});   
