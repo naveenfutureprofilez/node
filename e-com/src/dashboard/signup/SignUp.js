@@ -1,12 +1,35 @@
 import { LockClosedIcon } from '@heroicons/react/20/solid'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-
+import useFetch from '../../api/useFetch'
 export default function SignUp() {
 
-    const [data, setData] = useState();
+    const [data, setData] = useState({
+      name:'',
+      username:'',
+      password:'',
+      email:''
+    });
+ 
+    
     const handleInput = (e) =>{ 
+      let name = e.target.name; 
+      let value = e.target.value;
+      setData({...data, [name]:value});
+      console.log("data", data);
+    }
 
+    const Signup = () => {
+      const fdata = new FormData;
+      fdata.append("name", data.name);
+      fdata.append("username", data.username);
+      fdata.append("email", data.email);
+      fdata.append("password", data.password);
+      useFetch.signup('/signup', fdata).then((res)=>{ 
+        console.log(res);
+      }).catch((err)=>{
+        console.log(err);
+      });
     }
 
   return (
@@ -29,7 +52,7 @@ export default function SignUp() {
               </Link >
             </p>
           </div>
-          <form className="mt-8 space-y-6" >
+          {/* <form className="mt-8 space-y-6" > */}
             <div className="-space-y-px rounded-md shadow-sm">
               <div>
                 <label htmlFor="name" className="sr-only">
@@ -38,7 +61,7 @@ export default function SignUp() {
                 <input
                   id="name"
                   name="name"
-                  type="text"
+                  type="text" onChange={handleInput}
                   autoComplete="name"
                   required
                   className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
@@ -51,7 +74,7 @@ export default function SignUp() {
                 </label>
                 <input
                   id="email-address"
-                  name="email"
+                  name="email" onChange={handleInput}
                   type="email"
                   autoComplete="email"
                   required
@@ -64,7 +87,7 @@ export default function SignUp() {
                   Username
                 </label>
                 <input
-                  id="username"
+                  id="username" onChange={handleInput}
                   name="username"
                   type="username"
                   autoComplete="username"
@@ -78,7 +101,7 @@ export default function SignUp() {
                   Password
                 </label>
                 <input
-                  id="password"
+                  id="password" onChange={handleInput}
                   name="password"
                   type="password"
                   autoComplete="current-password"
@@ -92,11 +115,8 @@ export default function SignUp() {
             <div className="flex items-center justify-between">
               <div className="flex items-center">
                 <input
-                  id="remember-me"
-                  name="remember-me"
-                  type="checkbox"
-                  className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                />
+                  id="remember-me" name="remember-me" type="checkbox"
+                  className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
                 <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
                   Remember me
                 </label>
@@ -106,17 +126,16 @@ export default function SignUp() {
                 <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
                   Forgot your password?
                 </a>
-              </div>
+              </div> 
             </div>
 
             <div>
-              <button
-                type="submit"
+              <button onClick={Signup}
                 className="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 text-uppercase" >
-                Sign in
+                Sign Up
               </button>
             </div>
-          </form>
+          {/* </form> */}
         </div>
       </div>
     </div>

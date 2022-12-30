@@ -1,10 +1,10 @@
 const express = require('express');
+const cors = require('cors');
 const app = express();
 require('./db/config');
 app.use(express.json());
-
+app.use(cors());
 const User = require('./db/Users'); 
-
 
 app.get('/check', (req, res)=>{
    res.send("STATUS - ACTIVE");
