@@ -11,11 +11,27 @@ app.get('/check', (req, res)=>{
 });
 
 app.post('/signup', async (req, res)=>{
-    const user = new User(req.body);
+    const user = new User(req.body); 
     const result = await user.save();
     res.send(result);
 });
 
+app.post('/login', async (req, res)=>{
+    const user = await User.findOne(req.body).select("-password");
+    if(user){
+        res.send({
+            user:user,
+            status:true,
+            msg:"login Successfully"
+        }); 
+    } 
+    else { 
+        res.send({
+            status:false,
+            msg:"Invalid login details !!"
+        });
+    }
+});
 
 
 app.listen(5000, ()=>{console.log("===> SERVER RUNNINGGGGG")});

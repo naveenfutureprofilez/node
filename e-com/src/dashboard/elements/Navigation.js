@@ -15,7 +15,6 @@ export default function Navigation(){
         { name: 'Reports', href: '#', current: false },
     ];
 
-
     return <>
             {navigation.map((item) => (
                 <Link className='text-white text-uppercase ' to={item.href} >{item.name}</Link>

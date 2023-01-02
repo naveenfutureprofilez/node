@@ -1,7 +1,7 @@
-import { LockClosedIcon } from '@heroicons/react/20/solid'
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
-import useFetch from '../../api/useFetch'
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import Common from '../../api/Common';
+
 export default function SignUp() {
 
     const [data, setData] = useState({
@@ -11,7 +11,6 @@ export default function SignUp() {
       email:''
     });
  
-    
     const handleInput = (e) =>{ 
       let name = e.target.name; 
       let value = e.target.value;
@@ -20,17 +19,13 @@ export default function SignUp() {
     }
 
     const Signup = () => {
-      const fdata = new FormData;
-      fdata.append("name", data.name);
-      fdata.append("username", data.username);
-      fdata.append("email", data.email);
-      fdata.append("password", data.password);
-      useFetch.signup('/signup', fdata).then((res)=>{ 
+      Common.signup('/signup', data).then((res)=>{ 
         console.log(res);
       }).catch((err)=>{
         console.log(err);
       });
     }
+
 
   return (
     <div className='container' >
