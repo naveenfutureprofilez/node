@@ -7,8 +7,10 @@ import Navigation from './elements/Navigation';
 import AddProducts from './AddProducts';
 import SignUp from './signup/SignUp';
 import Login from './login/Login';
+import { Toaster } from 'react-hot-toast';
+ 
 const user = {
-  name: 'Tom Cook',
+  name: 'Tom Cook', 
   email: 'tom@example.com',
   imageUrl:
     'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
@@ -27,6 +29,13 @@ export default function DashboardLayout(){
     return <>
     <BrowserRouter>
       
+    {/* <Toaster
+    position="top-center"
+    reverseOrder={false}
+    gutter={8}
+  /> */}
+
+
       <div className="min-h-full">
         <Disclosure as="nav" className="bg-gray-800">
           {({ open }) => (
