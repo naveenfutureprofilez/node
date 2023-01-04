@@ -1,8 +1,12 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import Common from '../../api/Common';
+import { AppContext } from '../../context/AppContextProvider';
 
 export default function SignUp() {
+
+  const { name } = useContext(AppContext);
 
     const [data, setData] = useState({
       name:'',
@@ -10,6 +14,7 @@ export default function SignUp() {
       password:'',
       email:''
     });
+    console.log("name", name);
  
     const handleInput = (e) =>{ 
       let name = e.target.name; 
@@ -21,11 +26,12 @@ export default function SignUp() {
     const Signup = () => {
       Common.signup('/signup', data).then((res)=>{ 
         console.log(res);
+        toast.success(res.msg);
+        setData();
       }).catch((err)=>{
-        console.log(err);
+        toast.error(err.msg);
       });
-    }
-
+    } 
 
   return (
     <div className='container' >

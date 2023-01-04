@@ -13,7 +13,18 @@ app.get('/check', (req, res)=>{
 app.post('/signup', async (req, res)=>{
     const user = new User(req.body); 
     const result = await user.save();
-    res.send(result);
+    if(result){
+        res.send({
+            status:true,
+            msg:"Signup Successfully"
+        }); 
+    } 
+    else {  
+        res.send({
+            status:false,
+            msg:"failed to register"
+        });
+    }
 });
 
 app.post('/login', async (req, res)=>{
@@ -25,7 +36,7 @@ app.post('/login', async (req, res)=>{
             msg:"login Successfully"
         }); 
     } 
-    else { 
+    else {  
         res.send({
             status:false,
             msg:"Invalid login details !!"
