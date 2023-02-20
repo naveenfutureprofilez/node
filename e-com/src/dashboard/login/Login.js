@@ -1,6 +1,5 @@
-import { LockClosedIcon } from '@heroicons/react/20/solid'
 import { useState } from 'react';
-import { toast } from 'react-hot-toast';
+import { toast } from 'react-toastify';
 import Common from '../../api/Common';
 
 export default function SignUp() {
@@ -20,7 +19,7 @@ export default function SignUp() {
   const log = () => { 
     Common.login('/login', data).then((res)=> {
       console.log("res", res);
-      // toast.success();
+      toast.success(res.msg);
     }).catch((err)=>{ 
       console.log("err", err);
     });

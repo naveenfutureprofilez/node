@@ -7,9 +7,7 @@ import Navigation from './elements/Navigation';
 import AddProducts from './AddProducts';
 import SignUp from './signup/SignUp';
 import Login from './login/Login';
-import { Toaster } from 'react-hot-toast';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+
 import AppContext from '../context/AppContextProvider';
 
 const user = {
@@ -32,7 +30,7 @@ export default function DashboardLayout(){
     return <>
       <AppContext>
         <BrowserRouter>
-          <ToastContainer />
+       
           <div className="min-h-full">
             <Disclosure as="nav" className="bg-gray-800">
               {({ open }) => (

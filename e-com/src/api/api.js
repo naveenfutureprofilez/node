@@ -6,5 +6,5 @@ const Api = axios.create({
 
 // Api.defaults.headers.common['Authorization'] = `Bearer${config.API_KEY}`;
 Api.defaults.headers.common['Accept'] = 'application/json';
-
+    
 export default Api;  

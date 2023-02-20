@@ -4,6 +4,7 @@ const app = express();
 require('./db/config');
 app.use(express.json());
 app.use(cors());
+
 const User = require('./db/Users'); 
 
 app.get('/check', (req, res)=>{
@@ -20,9 +21,9 @@ app.post('/signup', async (req, res)=>{
         }); 
     } 
     else {  
-        res.send({
+        res.send({ 
             status:false,
-            msg:"failed to register"
+            msg:"Sign Failed !!"
         });
     }
 });
